@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Student Performance Prediction</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right,#43cea2,#185a9d);
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.container{
+    background:white;
+    padding:30px;
+    width:350px;
+    text-align:center;
+    border-radius:10px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
+
+input{
+    width:90%;
+    padding:10px;
+    margin:10px 0;
+    border-radius:5px;
+    border:1px solid #ccc;
+}
+
+button{
+    background:#185a9d;
+    color:white;
+    padding:10px 20px;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#0f3c6e;
+}
+
+#result{
+    margin-top:20px;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h2>Student Performance Prediction</h2>
+
+<input type="text" id="name" placeholder="Student Name">
+<input type="number" id="marks" placeholder="Marks (0-100)">
+<input type="number" id="attendance" placeholder="Attendance (%)">
+
+<button onclick="predict()">Predict Result</button>
+
+<div id="result"></div>
+</div>
+
+<script>
+function predict(){
+    let name=document.getElementById("name").value;
+    let marks=parseInt(document.getElementById("marks").value);
+    let attendance=parseInt(document.getElementById("attendance").value);
+    let result=document.getElementById("result");
+
+    if(name=="" || isNaN(marks) || isNaN(attendance)){
+        result.style.color="red";
+        result.innerHTML="Please enter all details!";
+        return;
+    }
+
+    let prediction="";
+    let grade="";
+
+    if(marks>=75 && attendance>=75){
+        grade="A";
+        prediction="High Chance of Passing 🎯";
+    }
+    else if(marks>=50 && attendance>=60){
+        grade="B";
+        prediction="Moderate Chance of Passing 🙂";
+    }
+    else if(marks>=40){
+        grade="C";
+        prediction="Low Chance – Need Improvement ⚠";
+    }
+    else{
+        grade="Fail";
+        prediction="High Risk of Failure ❌";
+    }
+
+    result.style.color="green";
+    result.innerHTML=`
+        Name: ${name}<br>
+        Marks: ${marks}<br>
+        Attendance: ${attendance}%<br>
+        Grade: ${grade}<br><br>
+        <b>Prediction:</b> ${prediction}
+    `;
+}
+</script>
+
+</body>
+</html>
